@@ -17,9 +17,7 @@ package main
 
 import (
 	"fmt"
-	//"github.com/davecgh/go-spew/spew"
 	"gopkg.in/mgo.v2"
-	//"gopkg.in/mgo.v2/bson"
 )
 
 type Connections struct {
@@ -115,7 +113,7 @@ func getStatusData(host string, port int) (Status, error) {
 	var result = Status{}
 	result.Databases = make(map[string]DatabaseStats)
 
-	var connectionUrl = fmt.Sprintf("mongodb://%s:%d/", host, port)
+	var connectionUrl = fmt.Sprintf("mongodb://%s:%d/?connect=direct", host, port)
 
 	log.Info("Connecting to %s", connectionUrl)
 	db, err := mgo.Dial(connectionUrl)
@@ -124,7 +122,6 @@ func getStatusData(host string, port int) (Status, error) {
 		return Status{}, err
 	}
 	defer db.Close()
-	db.SetMode(mgo.Monotonic, true)
 
 	err = db.Run("serverStatus", &result.ServerStatus)
 	if err != nil {

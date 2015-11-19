@@ -101,7 +101,7 @@ type DatabaseStats struct {
 	Collections   int64                    "collections"
 	Object        int64                    "objects"
 	AvgObjectSize float64                  "avgObjSize"
-	DataSize      int64                    "DataSize"
+	DataSize      int64                    "dataSize"
 	StorageSize   int64                    "storageSize"
 	Indexes       int64                    "indexes"
 	IndexSize     int64                    "indexSize"
